@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1012502725370",
+    "firebase_url": "https://auction-e8b12-default-rtdb.firebaseio.com",
     "project_id": "auction-e8b12",
     "storage_bucket": "auction-e8b12.appspot.com"
   },

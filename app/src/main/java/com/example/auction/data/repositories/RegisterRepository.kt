@@ -45,17 +45,22 @@ class RegisterRepository {
 
 
     fun registerUser(
-        emailAddress: String, password: String, callback: (Boolean, String) -> Unit
+        emailAddress: String, password: String, callback: (Boolean, String) -> Unit,
+        emailVerified: (Boolean) -> Unit
     ) {
         try {
             auth.createUserWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         auth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                            if (auth.currentUser?.isEmailVerified == false) {
+                                emailVerified(false)
+                            } else {
+                                emailVerified(true)
+                            }
                             val firebaseUserId = auth.currentUser?.uid
                             if (firebaseUserId != null) {
                                 val user = UserCredential(emailAddress, userId = firebaseUserId)
-
                                 db.collection("Login Details").document(firebaseUserId).get()
                                     .addOnSuccessListener { document ->
                                         if (document.exists()) {

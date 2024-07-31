@@ -7,4 +7,9 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/img_1</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.Auction</item>
     </style>
+
+    <!-- Toolbar style -->
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@android:color/white</item>
+    </style>
 </resources>

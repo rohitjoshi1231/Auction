@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    kotlin("plugin.serialization") version "2.0.0"
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -42,7 +44,13 @@ android {
 }
 
 dependencies {
+//    Google signIn
+    implementation(libs.play.services.auth)
 
+//    Circle image view
+    implementation(libs.circleimageview)
+//    Glider
+    implementation(libs.glide)
 //    Splash screen
     implementation(libs.androidx.core.splashscreen)
 
@@ -50,6 +58,20 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+//    Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+//    Work manager
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.junit.junit)
+    implementation(libs.firebase.crashlytics)
+
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.junit.v113)
+    testImplementation(libs.androidx.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -59,7 +81,15 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

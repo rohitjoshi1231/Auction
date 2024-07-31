@@ -9,12 +9,14 @@ class EmailRegisterViewModel() : ViewModel() {
     fun registerWithEmail(
         userCredential: UserCredential,
         password: String,
-        callback: (Boolean, String) -> Unit
+        callback: (Boolean, String) -> Unit,
+        emailVerification: (Boolean) -> Unit
     ) {
         RegisterRepository().registerUser(
             emailAddress = userCredential.email,
             password = password,
-            callback = callback
+            callback = callback,
+            emailVerified = emailVerification
         )
     }
 

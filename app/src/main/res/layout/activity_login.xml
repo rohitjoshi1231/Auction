@@ -19,27 +19,31 @@
 
     <EditText
         android:id="@+id/ed_txt_email_login"
-        android:layout_width="343dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_edittext_bg"
         android:hint="@string/please_enter_your_email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:paddingStart="25dp"
+        android:layout_marginEnd="10dp"
+        android:padding="18dp"
         tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/ed_txt_password_login"
-        android:layout_width="343dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:layout_marginStart="10dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:padding="18dp"
         android:background="@drawable/rounded_edittext_bg"
         android:hint="@string/please_enter_your_password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:paddingStart="25dp"
         tools:ignore="RtlSymmetry" />
 
 
@@ -68,7 +72,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="30dp"
             android:padding="5dp"
-            android:text="New user?"
+            android:text="@string/new_user"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -91,46 +95,10 @@
             android:padding="5dp"
             android:text="@string/forgot_password"
             android:textColor="@color/primary_500"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
 
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/or"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/register_with_google_login"
-        android:layout_width="343dp"
-        android:layout_height="58dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/img"
-        android:src="@drawable/img_9" />
 
 </LinearLayout>

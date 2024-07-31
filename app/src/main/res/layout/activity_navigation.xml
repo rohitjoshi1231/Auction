@@ -12,8 +12,7 @@
         android:layout_width="343dp"
         android:layout_height="258dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-
+        android:scaleType="centerCrop"
         android:contentDescription="@string/img"
         android:src="@drawable/nav_img" />
 
@@ -34,50 +33,12 @@
         android:layout_width="343dp"
         android:layout_height="58dp"
         android:layout_gravity="center"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/outlied_btn_style"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="17sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="or"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="343dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:background="@drawable/outlied_btn_style"
-        android:drawableStart="@drawable/img_6"
-        android:padding="20dp"
-        android:text="@string/sign_in_with_google"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
 </LinearLayout>

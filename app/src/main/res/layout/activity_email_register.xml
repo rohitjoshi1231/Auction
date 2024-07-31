@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -54,21 +58,11 @@
         android:paddingStart="25dp"
         tools:ignore="RtlSymmetry" />
 
-    <Button
-        android:id="@+id/btn_email_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="@drawable/round_corner_btn"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="17sp" />
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+            android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:orientation="horizontal">
@@ -88,40 +82,17 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_email_register"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/or"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:layout_margin="30dp"
+            android:background="@drawable/round_corner_btn"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
-        <View
-            android:layout_width="171.5dp"
-            android:layout_height="1.5dp"
-            android:layout_gravity="center"
-            android:background="@color/black" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="343dp"
-        android:layout_height="58dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/img"
-        android:src="@drawable/img_9" />
 
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>

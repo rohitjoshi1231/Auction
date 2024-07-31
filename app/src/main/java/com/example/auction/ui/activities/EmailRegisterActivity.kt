@@ -77,14 +77,18 @@ class EmailRegisterActivity : AppCompatActivity() {
     private fun registerWithEmail(email: String, password: String) {
 
         val userCredential = UserCredential(email = email)
-        emailRegisterViewModel.registerWithEmail(userCredential, password) { isSuccess, message ->
+        emailRegisterViewModel.registerWithEmail(userCredential, password, { isSuccess, message ->
             if (isSuccess) {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@EmailRegisterActivity, MainActivity::class.java))
+                startActivity(Intent(this@EmailRegisterActivity, VerifyEmailActivity::class.java))
             } else {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
-        }
+        }, { emailVerified ->
+            if (emailVerified) {
+                startActivity(Intent(this@EmailRegisterActivity, MainActivity::class.java))
+            }
+        })
 
     }
 }

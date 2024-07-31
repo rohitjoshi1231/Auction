@@ -14,6 +14,7 @@ import com.example.auction.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+
     private val emailRegisterViewModel: EmailRegisterViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,10 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        binding.newRegister.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, EmailRegisterActivity::class.java))
+
+        }
         binding.btnEmailLogin.setOnClickListener {
             val email = binding.edTxtEmailLogin.text.trim()
             val password = binding.edTxtPasswordLogin.text.trim()
@@ -35,7 +40,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
+
 
     private fun login(email: String, password: String) {
 

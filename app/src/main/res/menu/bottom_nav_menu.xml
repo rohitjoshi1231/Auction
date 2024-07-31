@@ -7,11 +7,18 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_reels"
+        android:id="@+id/navigation_search"
         android:icon="@drawable/img_16"
         android:title="" />
+
+
     <item
-        android:id="@+id/navigation_settings"
+        android:id="@+id/navigation_notification"
+        android:icon="@drawable/img_19"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_user_profile"
         android:icon="@drawable/img_17"
         android:title="" />
 
