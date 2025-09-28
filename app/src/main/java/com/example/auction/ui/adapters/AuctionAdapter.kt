@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.auction.R
 import com.example.auction.TimeTask
-import com.example.auction.data.DataHelper
 import com.example.auction.data.models.AuctionDetails
 import com.example.auction.data.viewmodels.SharedViewModel
 import com.example.auction.ui.activities.JoinAuctionActivity
@@ -48,7 +47,7 @@ class AuctionAdapter(
 
         Log.d("AuctionAdapter", "Auction ID: ${currentItem.auctionId}")
 
-        startOrRefreshTimer(currentItem.auctionId, holder) { remainingTime ->
+        startOrRefreshTimer(currentItem, holder) { remainingTime ->
             val options =
                 ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out)
 
@@ -60,21 +59,18 @@ class AuctionAdapter(
             }
         }
 
+
         holder.productName.text = currentItem.productName
         holder.productPrice.text = currentItem.maxBid.toString()
 
-        Glide.with(context)
-            .load(Uri.parse(currentItem.imageUri))
-            .placeholder(R.drawable.img_placeholder)
-            .error(R.drawable.img_error)
+        Glide.with(context).load(Uri.parse(currentItem.imageUri))
+            .placeholder(R.drawable.img_placeholder).error(R.drawable.img_error)
             .into(holder.imageView)
     }
 
 
     private fun showIntent(
-        currentItem: AuctionDetails,
-        remainingTime: String,
-        options: ActivityOptions
+        currentItem: AuctionDetails, remainingTime: String, options: ActivityOptions
     ) {
         val intent = Intent(context, JoinAuctionActivity::class.java).apply {
             putExtra("auctionId", currentItem.auctionId)
@@ -89,22 +85,24 @@ class AuctionAdapter(
     }
 
     private fun startOrRefreshTimer(
-        auctionId: String, holder: GridViewHolder, callback: (String) -> Unit
+        auction: AuctionDetails, holder: GridViewHolder, callback: (String) -> Unit
     ) {
-        val endTime = DataHelper(context).endTime(auctionId)
+        val endTime = auction.endTime
+
         endTime?.let {
-            timerTasks[auctionId]?.cancel()
+            timerTasks[auction.auctionId]?.cancel()
 
             val timerTask =
-                TimeTask(auctionId, it.time, context) { remainingTime, isAuctionFinished ->
+                TimeTask(auction.auctionId, it, context) { remainingTime, isAuctionFinished ->
                     sharedViewModel.auction(isAuctionFinished)
                     holder.auctionTime.text = remainingTime
                     callback(remainingTime)
                 }
-            timerTasks[auctionId] = timerTask
+            timerTasks[auction.auctionId] = timerTask
             Timer().schedule(timerTask, 0, 1000)
         }
     }
+
 
     override fun onViewRecycled(holder: GridViewHolder) {
         super.onViewRecycled(holder)

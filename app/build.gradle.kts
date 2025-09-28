@@ -22,7 +22,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -66,6 +67,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.junit.junit)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)

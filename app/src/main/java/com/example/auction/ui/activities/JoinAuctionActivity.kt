@@ -38,6 +38,7 @@ class JoinAuctionActivity : AppCompatActivity() {
         }
 
         val extras = intent.extras
+
         if (extras != null) {
             val auctionId = extras.getString("auctionId")
             val imageUri = extras.getString("imageUrl")
@@ -46,8 +47,6 @@ class JoinAuctionActivity : AppCompatActivity() {
             val minBid = extras.getString("minBid")
             val maxBid = extras.getString("maxBid")
             val remainingTime = extras.getString("currentTime")
-
-
 
             if (remainingTime != "Auction Ended") {
                 displayAuction(

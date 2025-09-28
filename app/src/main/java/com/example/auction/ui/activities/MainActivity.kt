@@ -2,6 +2,7 @@ package com.example.auction.ui.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,9 +12,7 @@ import com.example.auction.R
 import com.example.auction.databinding.ActivityMainBinding
 import com.example.auction.ui.fragments.CreateAuctionFragment
 import com.example.auction.ui.fragments.HomeFragment
-import com.example.auction.ui.fragments.NotificationFragment
 import com.example.auction.ui.fragments.SearchFragment
-import com.example.auction.ui.fragments.UserProfileFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @Suppress("DEPRECATION")
@@ -48,13 +47,23 @@ class MainActivity : AppCompatActivity() {
             when (menu.itemId) {
                 R.id.navigation_home -> openDashboard()
                 R.id.navigation_search -> loadFragment(SearchFragment(), "Discover")
-                R.id.navigation_notification -> loadFragment(
-                    NotificationFragment(), "Notification"
-                )
+                R.id.navigation_notification -> Toast.makeText(
+                    this,
+                    "Feature needs to be implemented",
+                    Toast.LENGTH_SHORT
+                ).show()
+//                    loadFragment(
+//                    NotificationFragment(), "Notification"
+//                )
 
-                R.id.navigation_user_profile -> loadFragment(
-                    UserProfileFragment(), "Account"
-                )
+                R.id.navigation_user_profile -> Toast.makeText(
+                    this,
+                    "Feature needs to be implemented",
+                    Toast.LENGTH_SHORT
+                ).show()
+//                    loadFragment(
+//                    UserProfileFragment(), "Account"
+//                )
             }
             true
         }

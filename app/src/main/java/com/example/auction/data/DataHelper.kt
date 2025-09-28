@@ -32,12 +32,16 @@ class DataHelper(context: Context) {
 
     fun endTime(auctionId: String): Date? {
         val endTimeMillis = endTimeMap[auctionId] ?: return null
+        println("auctionid: $auctionId")
+        println("endTimeMap: $endTimeMap")
+        println("emd; ${endTimeMillis}")
         return Date(endTimeMillis)
     }
 
 
     fun setEndTime(auctionId: String, date: Date?) {
         endTimeMap[auctionId] = date?.time ?: 0L // Store time in millis
+        println("time; ${date?.time ?: 0}")
         with(sharedPreferences.edit()) {
             val stringData = date?.time?.toString()
             putString("$END_TIME_PREFIX$auctionId", stringData)

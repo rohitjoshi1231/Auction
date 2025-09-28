@@ -1,9 +1,9 @@
 package com.example.auction.data.repositories
 
 import com.example.auction.data.models.AuctionBid
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.database
 
 class JoinAuctionRepository {
     private val database = Firebase.database

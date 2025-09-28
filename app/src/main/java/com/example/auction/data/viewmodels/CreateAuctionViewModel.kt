@@ -14,16 +14,20 @@ class CreateAuctionViewModel : ViewModel() {
         maxBid: Double,
         imageUri: Uri,
         isAuctionFinished: Boolean,
+        endTime: Long?,
+
         callback: (Boolean, String, String?) -> Unit
     ) {
         repository.createAuction(
-            productName,
-            productDescription,
-            minBid,
-            maxBid,
-            imageUri,
-            isAuctionFinished,
-            callback
+            productName = productName,
+            productDescription = productDescription,
+            minBid = minBid,
+            maxBid = maxBid,
+            imageUri = imageUri,
+            isAuctionFinished = isAuctionFinished,
+            endTime = endTime,
+            callback = callback
+
         )
     }
 

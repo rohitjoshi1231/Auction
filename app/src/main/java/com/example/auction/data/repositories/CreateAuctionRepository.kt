@@ -2,13 +2,17 @@ package com.example.auction.data.repositories
 
 import android.net.Uri
 import com.example.auction.data.models.AuctionDetails
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
+import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 
 class CreateAuctionRepository {
     private val db = Firebase.firestore
+    val database = Firebase.database
+    val myRef = database.getReference("auctionTimer")
     private val storageRef = FirebaseStorage.getInstance().reference
 
     fun createAuction(
@@ -17,7 +21,7 @@ class CreateAuctionRepository {
         minBid: Double,
         maxBid: Double,
         imageUri: Uri,
-        isAuctionFinished: Boolean,
+        isAuctionFinished: Boolean, endTime: Long?,
         callback: (Boolean, String, String?) -> Unit
     ) {
         val fileName = "${UUID.randomUUID()}.jpeg"
@@ -32,22 +36,27 @@ class CreateAuctionRepository {
                     productDescription,
                     minBid,
                     maxBid,
-                    uri.toString(),
-                    isAuctionFinished
+                    uri.toString(), isAuctionFinished, endTime
                 )
+                val auctionMap = mapOf(
+                    "auctionId" to auctionId,
+                    "endTime" to endTime
+                )
+
+                myRef.child(auctionId).setValue(auctionMap)
+
                 val auctionRef = db.collection("Auction Details").document(auctionId)
                 auctionRef.set(auctionData).addOnSuccessListener {
                     callback(true, "Auction created successfully", auctionId)
-                }.addOnFailureListener {
-                    callback(false, "Failed to create auction: ${it.message}", null)
+                }.addOnFailureListener { exception ->
+                    callback(false, "Failed to create auction: ${exception.message}", null)
                 }
-            }.addOnFailureListener {
-                callback(false, "Failed to get download URL: ${it.message}", null)
+            }.addOnFailureListener { exception ->
+                callback(false, "Failed to get download URL: ${exception.message}", null)
             }
-        }.addOnFailureListener {
-            callback(false, "Failed to upload image: ${it.message}", null)
+        }.addOnFailureListener { exception ->
+            callback(false, "Failed to upload image: ${exception.message}", null)
         }
     }
-
-
 }
+

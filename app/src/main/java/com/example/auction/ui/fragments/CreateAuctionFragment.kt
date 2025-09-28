@@ -18,7 +18,6 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.auction.R
-import com.example.auction.data.DataHelper
 import com.example.auction.data.viewmodels.CreateAuctionViewModel
 import com.example.auction.databinding.FragmentCreateAuctionBinding
 import com.example.auction.ui.activities.MainActivity
@@ -99,37 +98,41 @@ class CreateAuctionFragment : Fragment() {
         productDescription: String,
         minBid: Double,
         maxBid: Double,
-        imageUri: Uri,
+        imageUri: Uri
     ) {
-        viewModel.createAuction(
-            productName = productName,
-            productDescription = productDescription,
-            maxBid = maxBid,
-            minBid = minBid,
-            imageUri = imageUri,
-            isAuctionFinished = false
-        ) { isSuccess, message, auctionId ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            if (isSuccess) {
-                Log.d("CreateAuctionFragment", "Auction created successfully with ID: $auctionId")
-                this.auctionId = auctionId
-                binding.btnAuctionSubmit.isEnabled = true
-                if (auctionId != null) {
-                    showDateTimePickerDialog(auctionId)
+        showDateTimePickerDialog { selectedEndTime ->
+            viewModel.createAuction(
+                productName = productName,
+                productDescription = productDescription,
+                maxBid = maxBid,
+                minBid = minBid,
+                imageUri = imageUri,
+                isAuctionFinished = false,
+                endTime = selectedEndTime,
+            ) { isSuccess, message, auctionId ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                if (isSuccess) {
+                    Log.d(
+                        "CreateAuctionFragment",
+                        "Auction created successfully with ID: $auctionId"
+                    )
+                    this.auctionId = auctionId
+                    binding.btnAuctionSubmit.isEnabled = true
                     Toast.makeText(
                         requireContext(),
                         "Auction Created Successfully",
                         Toast.LENGTH_SHORT
                     ).show()
+                } else {
+                    Log.e("CreateAuctionFragment", "Failed to create auction: $message")
                 }
-            } else {
-                Log.e("CreateAuctionFragment", "Failed to create auction: $message")
             }
         }
     }
 
+
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showDateTimePickerDialog(auctionId: String) {
+    private fun showDateTimePickerDialog(callback: (Long) -> Unit) {
         val calendar = Calendar.getInstance()
 
         // Set the start and end of the current month
@@ -139,7 +142,7 @@ class CreateAuctionFragment : Fragment() {
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
         val monthEnd = calendar.timeInMillis
 
-        // Set the calendar to the current date
+        // Reset to now
         calendar.timeInMillis = System.currentTimeMillis()
 
         val datePickerDialog = DatePickerDialog(
@@ -150,17 +153,20 @@ class CreateAuctionFragment : Fragment() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 val timePickerDialog = TimePickerDialog(
-                    requireContext(), { _, hourOfDay, minute ->
+                    requireContext(),
+                    { _, hourOfDay, minute ->
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         calendar.set(Calendar.MINUTE, minute)
                         calendar.set(Calendar.SECOND, 0)
 
                         val selectedDateTime = calendar.time
-                        DataHelper(requireContext()).setEndTime(auctionId, selectedDateTime)
                         binding.selectedDate.text = selectedDateTime.toString()
-                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false
+                        callback(selectedDateTime.time) // Pass milliseconds back
+                    },
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    false
                 )
-
                 timePickerDialog.show()
             },
             calendar.get(Calendar.YEAR),
@@ -173,6 +179,7 @@ class CreateAuctionFragment : Fragment() {
 
         datePickerDialog.show()
     }
+
 
     private fun resetForm() {
         binding.auctionImage.setBackgroundResource(R.drawable.img_20)
