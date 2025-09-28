@@ -35,7 +35,7 @@
 
 
     <Button
-        android:id="@+id/btn_bid"
+        android:id="@+id/btn_openEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
