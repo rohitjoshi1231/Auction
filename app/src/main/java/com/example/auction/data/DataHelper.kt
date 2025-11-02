@@ -2,6 +2,8 @@ package com.example.auction.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
@@ -29,6 +31,28 @@ class DataHelper(context: Context) {
             }
         }
     }
+
+    fun setWinner(auctionId: String) {
+        val dbRef = FirebaseDatabase.getInstance()
+            .getReference("AuctionBid")
+            .child(auctionId)
+
+        dbRef.get().addOnSuccessListener { snapshot ->
+            if (snapshot.exists()) {
+                val highestUserId = snapshot.child("userId").getValue(String::class.java)
+                if (highestUserId != null) {
+                    dbRef.child("winner").setValue(true)
+                        .addOnSuccessListener {
+                            Log.d("Auction", "Winner set true for $highestUserId")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Auction", "Failed to set winner: ${e.message}")
+                        }
+                }
+            }
+        }
+    }
+
 
     fun endTime(auctionId: String): Date? {
         val endTimeMillis = endTimeMap[auctionId] ?: return null

@@ -24,5 +24,6 @@ class Slider3Activity : AppCompatActivity() {
         binding.btnSlider3.setOnClickListener {
             startActivity(Intent(this@Slider3Activity, NavigationActivity::class.java))
         }
+
     }
 }

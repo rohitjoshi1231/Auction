@@ -25,6 +25,9 @@ class Slider2Activity : AppCompatActivity() {
         binding.btnSlider2.setOnClickListener {
             startActivity(Intent(this@Slider2Activity, Slider3Activity::class.java))
         }
+        binding.skipBtn2.setOnClickListener {
+            startActivity(Intent(this, NavigationActivity::class.java))
+        }
 
     }
 }

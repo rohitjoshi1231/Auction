@@ -94,9 +94,12 @@ class AuctionAdapter(
 
             val timerTask =
                 TimeTask(auction.auctionId, it, context) { remainingTime, isAuctionFinished ->
-                    sharedViewModel.auction(isAuctionFinished)
-                    holder.auctionTime.text = remainingTime
-                    callback(remainingTime)
+                    if (isAuctionFinished || remainingTime == "00:00:00:00"){
+                        sharedViewModel.auction(isAuctionFinished)
+                    }else{
+                        holder.auctionTime.text = remainingTime
+                        callback(remainingTime)
+                    }
                 }
             timerTasks[auction.auctionId] = timerTask
             Timer().schedule(timerTask, 0, 1000)

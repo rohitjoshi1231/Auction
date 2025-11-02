@@ -22,6 +22,7 @@ class TimeTask(
             cancel()
             handler.post {
                 DataHelper(context).setAuctionFinished(auctionId, true)
+                DataHelper(context).setWinner(auctionId)
                 callback("00:00:00:00", true)
             }
         } else {

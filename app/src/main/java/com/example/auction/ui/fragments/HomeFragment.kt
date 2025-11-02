@@ -2,7 +2,6 @@ package com.example.auction.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.example.auction.R
 import com.example.auction.data.viewmodels.HomeViewModel
 import com.example.auction.data.viewmodels.SharedViewModel
 import com.example.auction.databinding.FragmentHomeBinding
 import com.example.auction.ui.activities.MainActivity
 import com.example.auction.ui.adapters.AuctionAdapter
 import com.google.firebase.auth.FirebaseAuth
+import com.example.auction.R
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -50,16 +49,24 @@ class HomeFragment : Fragment() {
             adapter = auctionAdapter
         }
 
-        // Set user greeting and profile image
+
         binding.userName.text = if (auth.currentUser?.displayName?.isEmpty() == true) {
-            "Hello Guest"
+            auth.currentUser?.email?.let {
+                if (!it.contains(Regex("\\d"))){
+
+                }
+            }
+            "Hello ${auth.currentUser?.email?.replace("@gmail.com", "") ?: "Guest"}"
         } else {
             "Hello ${auth.currentUser?.displayName}"
         }
 
-        Glide.with(requireContext()).load(auth.currentUser?.photoUrl)
-            .error(R.drawable.user_not_found).into(binding.homeUserProfile)
-
+        if (auth.currentUser?.photoUrl != null) {
+            Glide.with(requireContext()).load(auth.currentUser?.photoUrl)
+                .into(binding.homeUserProfile)
+        }else{
+            binding.homeUserProfile.setImageResource(R.drawable.user_circle)
+        }
         homeViewModel.getAuction {
 
         }

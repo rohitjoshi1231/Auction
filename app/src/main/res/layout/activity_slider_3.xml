@@ -7,6 +7,7 @@
     tools:context=".ui.activities.Slider3Activity">
 
     <ImageView
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -14,6 +15,15 @@
         android:contentDescription="@string/img"
         android:src="@drawable/slider_slider_3" />
 
+    <TextView
+        android:id="@+id/skipBtn_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:text="Skip" />
     <ImageView
         android:layout_width="375dp"
         android:layout_height="422dp"
